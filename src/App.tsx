@@ -1,14 +1,19 @@
-import { useState } from 'react'
-import './App.css'
+import React, {useEffect} from 'react'
+import axios from "axios";
+import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import HomePage from "./pages/homePage";
+import SelectProvince from "./pages/selectProvince";
+import {getDataEachProvince} from "./api";
 
-function App() {
-  const [count, setCount] = useState<number>(0)
-
-  return (
-    <div className="container mx-auto p-4 w-3/4 bg-blue-400">
-      <p className="w-5">你好</p>
-    </div>
-  )
+const App = (): JSX.Element => {
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<HomePage />}></Route>
+                <Route path="/selectProvince" element={<SelectProvince />}></Route>
+            </Routes>
+        </BrowserRouter>
+    )
 }
 
 export default App
