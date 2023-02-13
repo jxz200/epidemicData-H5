@@ -2,7 +2,7 @@ import React from 'react';
 
 const EpidemicData = () => {
     return (
-        <div>
+        <div id="epidemicData">
             This is EpidemicData
         </div>
     );
