@@ -3,7 +3,7 @@ import React from 'react';
 const EpidemicMap = () => {
     return (
         <div id="epidemicMap">
-            This is EpidemicMap
+            疫情地图
         </div>
     );
 };

@@ -1,9 +1,7 @@
-import React, {useEffect} from 'react'
-import axios from "axios";
+import React from 'react'
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 import HomePage from "./pages/homePage";
 import SelectProvince from "./pages/selectProvince";
-import {getDataEachProvince} from "./api";
 
 const App = (): JSX.Element => {
     return (

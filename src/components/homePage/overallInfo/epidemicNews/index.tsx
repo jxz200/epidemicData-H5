@@ -24,7 +24,7 @@ const EpidemicNews = ({newsList}: AppProps) => {
             <ul>
                 {newsList.map((news: News, index: number) =>
                     <li key={index}>
-                        <a href={news.link} target="_blank" className="flex flex-col items-center mb-4 bg-gray-100 rounded-2xl overflow-hidden">
+                        <a href={news.link} target="_blank" className="flex flex-col items-center mb-6 bg-gray-100 rounded-2xl overflow-hidden">
                             <div className="h-48 w-full">
                                 <img src={news.imgUrl} alt="pic" className={"object-cover w-full h-full"}/>
                             </div>
