@@ -1,13 +1,21 @@
 import React, {useEffect, useState} from 'react';
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
+import {getProvinceData} from "../api";
+import {provinceData, setProvinceData} from "../store/provinceData/provinceDataCounter";
+import {useDispatch} from "react-redux";
 
 const HomePage = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const [provinceName, setProvinceName] = useState<string>('选择省份')
+    const dispatch = useDispatch();
     useEffect(() => {
         const decodedProvinceName = decodeURIComponent(location.pathname.split("/province/")[1]);
         setProvinceName(location.pathname === "/" ? '选择省份' : decodedProvinceName)
+        getProvinceData().then(res => {
+            const provinceDataList = res.data.retdata
+            dispatch(setProvinceData(provinceDataList))
+        })
     }, [location]);
     return (
         <div className="relative">

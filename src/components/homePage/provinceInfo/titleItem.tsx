@@ -1,12 +1,12 @@
-import React from "react";
+import React, {FC} from "react";
 
 interface AppProps {
     title?: string;
     className?: string;
-    onClick?: Function;
+    // onClick?: Function;
 }
 
-export function TitleItem({title, className, onClick}: AppProps) {
+export function TitleItem({title, className}: AppProps) {
     return <span
-        className={`h-8 flex bg-gray-100 flex-1 justify-center mr-1 items-center ${className ? className : ""}`} onClick={ () => onClick()}>{title ? title : ""}</span>;
+        className={`h-8 flex bg-gray-100 flex-1 justify-center mr-1 items-center ${className ? className : ""}`}>{title ? title : ""}</span>;
 }

@@ -1,12 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import * as echarts from "echarts";
 import "echarts/map/js/china.js";
 import {getProvinceData} from "../../../../api";
 import {useDispatch, useSelector} from "react-redux";
-import {RootState} from "../../../../store";
 import {provinceData, setProvinceData} from "../../../../store/provinceData/provinceDataCounter";
-import {formatDate} from "../../../../utils/formatDate";
 import {Title} from "../../../title";
+import {RootState} from "../../../../store";
 
 const getData = (array: { xArea: string, confirm: string, curConfirm: string }[], name: "confirm" | "curConfirm") => {
     return array.map((item) => {
@@ -113,23 +112,20 @@ const getMap = (id: string, dataArr: { name: string, value: string }[]) => {
 }
 
 const EpidemicMap = () => {
-    const dispatch = useDispatch();
+    const allProvinceData = useSelector((state: RootState) => state.counter.value);
     useEffect(() => {
-        getProvinceData().then(async (res) => {
-            const provinceDataList = res.data.retdata
-            console.log(provinceDataList)
-            getMap("confirmedMap", getData(provinceDataList, "confirm"))
-            getMap("curConfirmedMap", getData(provinceDataList, "curConfirm"))
-            dispatch(setProvinceData(provinceDataList))
-        })
-    }, [])
+        getMap("confirmedMap", getData(allProvinceData, "confirm"))
+        getMap("curConfirmedMap", getData(allProvinceData, "curConfirm"))
+    }, [allProvinceData])
     return (
         <div id="epidemicMap" className="h-[56rem]">
             <Title title="疫情地图"/>
-            <span className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
+            <span
+                className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
             <span className="font-bold">累计确诊</span>
             <div id="confirmedMap" className="h-[25rem]"></div>
-            <span className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
+            <span
+                className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
             <span className="font-bold">现存确诊</span>
             <div id="curConfirmedMap" className="h-[25rem]"></div>
         </div>
