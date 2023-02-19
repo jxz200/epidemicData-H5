@@ -1,26 +1,29 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import * as echarts from "echarts";
 import "echarts/map/js/china.js";
 import {getProvinceData} from "../../../../api";
+import {useDispatch, useSelector} from "react-redux";
+import {RootState} from "../../../../store";
+import {provinceData, setProvinceData} from "../../../../store/provinceData/provinceDataCounter";
+import {formatDate} from "../../../../utils/formatDate";
+import {Title} from "../../../title";
 
-const getData = (array: {xArea: string,confirm: string,curConfirm: string}[], name: "confirm" | "curConfirm") => {
+const getData = (array: { xArea: string, confirm: string, curConfirm: string }[], name: "confirm" | "curConfirm") => {
     return array.map((item) => {
         return ({name: item.xArea, value: item[name]});
     });
 }
 
-const getMap = (id: string, dataArr: {name: string, value: string}[]) => {
-    console.log(document.getElementById(id));
+const getMap = (id: string, dataArr: { name: string, value: string }[]) => {
     // @ts-ignore
     let myChart = echarts.init(document.getElementById(id));
-    console.log(myChart)
     // 绘制图表
     const option = {
         tooltip: {
             triggerOn: "click",
             enterable: true,
-            formatter(data: {name: string, value: string}) {
-                return `<a style="color:white" href="/province/${data.name}">&nbsp; ${data.name}: ${data.value} &nbsp; | &nbsp; 查看详情 > </a> `;
+            formatter(data: { name: string, value: string }) {
+                return `<a style="color:white" href="/#/province/${data.name}">&nbsp; ${data.name}: ${data.value} &nbsp; | &nbsp; 查看详情 > </a> `;
             },
         },
         visualMap: {
@@ -110,19 +113,25 @@ const getMap = (id: string, dataArr: {name: string, value: string}[]) => {
 }
 
 const EpidemicMap = () => {
+    const dispatch = useDispatch();
     useEffect(() => {
-        getProvinceData().then(res => {
-            getMap("confirmedMap", getData(res.data.retdata, "confirm"))
-            getMap("curConfirmedMap", getData(res.data.retdata, "curConfirm"))
+        getProvinceData().then(async (res) => {
+            const provinceDataList = res.data.retdata
+            console.log(provinceDataList)
+            getMap("confirmedMap", getData(provinceDataList, "confirm"))
+            getMap("curConfirmedMap", getData(provinceDataList, "curConfirm"))
+            dispatch(setProvinceData(provinceDataList))
         })
     }, [])
     return (
-        <div id="epidemicMap" className="h-96">
-            <h1>疫情地图</h1>
-            <h1>累计确诊</h1>
-            <div id="confirmedMap" className="h-full"></div>
-            <h1>现存确诊</h1>
-            <div id="curConfirmedMap" className="h-full"></div>
+        <div id="epidemicMap" className="h-[56rem]">
+            <Title title="疫情地图"/>
+            <span className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
+            <span className="font-bold">累计确诊</span>
+            <div id="confirmedMap" className="h-[25rem]"></div>
+            <span className="inline-block w-3 h-3 bg-theme rounded-full border-solid border-2 border-gray-200 mr-2"></span>
+            <span className="font-bold">现存确诊</span>
+            <div id="curConfirmedMap" className="h-[25rem]"></div>
         </div>
     );
 };

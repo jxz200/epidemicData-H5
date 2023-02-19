@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react';
+import {Title} from "../../../title";
 
 interface AppProps {
     newsList: News[];
@@ -19,8 +20,7 @@ const EpidemicNews = ({newsList}: AppProps) => {
     },[])
     return (
         <div id="epidemicNews">
-            <i></i>
-            <h1 className="mb-2">疫情热点</h1>
+            <Title title="疫情热点"/>
             <ul>
                 {newsList.map((news: News, index: number) =>
                     <li key={index}>

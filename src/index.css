@@ -3,6 +3,46 @@
 @tailwind utilities;
 
 html {
-    font-size: 4.26666667vw;
+    font-size: 4.26666667vw !important;
     scroll-behavior: smooth;
+}
+
+body {
+    font-size: 1rem;
+}
+
+:root {
+    --active-line-color: rgb(20 184 166);
+
+}
+
+@font-face {
+    font-family: "iconfont"; /* Project id 3176789 */
+    src: url('//at.alicdn.com/t/c/font_3176789_ho58267jny.woff2?t=1676692577175') format('woff2'),
+    url('//at.alicdn.com/t/c/font_3176789_ho58267jny.woff?t=1676692577175') format('woff'),
+    url('//at.alicdn.com/t/c/font_3176789_ho58267jny.ttf?t=1676692577175') format('truetype');
+}
+
+.iconfont {
+    font-family: "iconfont" !important;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+
+.icon-virus:before {
+    content: "\e7a0";
+}
+
+.icon-home:before {
+    content: "\e7c6";
+}
+
+.icon-down:before {
+    content: "\e600";
+}
+
+.icon-right:before {
+    content: "\e775";
 }
