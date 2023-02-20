@@ -3,8 +3,14 @@
 @tailwind utilities;
 
 html {
-    font-size: 4.26666667vw !important;
+    font-size: 4.26666667vw;
     scroll-behavior: smooth;
+}
+
+@media (min-width: 750px) {
+    html {
+        font-size: 25px;
+    }
 }
 
 body {
@@ -13,7 +19,6 @@ body {
 
 :root {
     --active-line-color: rgb(20 184 166);
-
 }
 
 @font-face {
